@@ -23,7 +23,7 @@ int WordCount::getTotalWords() const {
 		for (auto a : table[i]) {
 			if (a.second > 0) {
 
-				iCount+=a.second;
+				iCount += a.second;
 			}
 			/*
 		for (int y = 0; y < table[i].size(); y++) {
@@ -53,7 +53,7 @@ int WordCount::getWordCount(const std::string& word) const {
 	size_t hashed = hash(sValid);
 	for (auto i : table[hashed]) {
 		if (i.first == sValid) {					//if it's a repeat of same hash AND same word
-			
+
 			//or if ++ gives an issue 
 			//i.second= i.second+1;
 			return i.second;
@@ -68,9 +68,13 @@ int WordCount::getWordCount(const std::string& word) const {
 
 int WordCount::incrWordCount(const std::string& word) {
 	// STUB
+	if (word == "")
+		return 0;
 	string sValid = makeValidWord(word);
+	if (sValid == "")
+		return 0;
 	size_t hashed = hash(sValid);
-	
+
 	for (size_t x = 0; x < table[hashed].size(); x++) {
 		if (table[hashed].at(x).first == sValid) {
 			table[hashed].at(x).second++;
@@ -81,7 +85,7 @@ int WordCount::incrWordCount(const std::string& word) {
 	for (auto i : table[hashed]) {
 		if (i.first == sValid) {					//if it's a repeat of same hash AND same word
 			//i.second++;
-			//or if ++ gives an issue 
+			//or if ++ gives an issue
 			std::cout << i.second;
 			i.second*=(i.second*+1);
 			return i.second;
@@ -102,12 +106,12 @@ int WordCount::decrWordCount(const std::string& word) {
 	// STUB
 	string sValid = makeValidWord(word);
 	size_t hashed = hash(sValid);
-	int x=0;
+	int x = 0;
 
 
 	for (auto i : table[hashed]) {
-		
-		if (i.first == sValid) {					
+
+		if (i.first == sValid) {
 			if (i.second == 1) {									//if it's a repeat of same hash AND same word  AND second is 1 RETURN 0 and remove from HT
 				//table[hashed].erase(i); //not sure why wont work
 				table[hashed].erase(table[hashed].begin() + x);		// now use integer x to delete it
@@ -116,10 +120,10 @@ int WordCount::decrWordCount(const std::string& word) {
 
 			i.second--;											//if it's a repeat of same hash AND same word  AND second is greater than 1
 			return i.second;
-		}													
+		}
 		x++;
 	}
-	
+
 	return -1;		//it isn't in the vector then, nothing to subtract RETURN -1
 
 }
@@ -155,13 +159,14 @@ std::string WordCount::makeValidWord(const std::string& word) {
 	string sAcceptedChars = "abcdefghijklmnopqrstuvwxyz-'";
 	for (size_t x = 0; x < word.size(); x++) {
 		for (size_t y = 0; y < sAcceptedChars.length(); y++) {
-			if(tolower(word[x])){ 
-			if (tolower(word[x]) == sAcceptedChars[y]) {
-				sNewWord += (sAcceptedChars[y]);
-			}}
+			if (tolower(word[x])) {
+				if (tolower(word[x]) == sAcceptedChars[y]) {
+					sNewWord += (sAcceptedChars[y]);
+				}
+			}
 		}
 	}
-	while ((sNewWord[0] == '\'' || sNewWord[0] == '-')&& sNewWord!="") {
+	while ((sNewWord[0] == '\'' || sNewWord[0] == '-') && sNewWord != "") {
 		sNewWord.erase(0, 1);
 	}
 	if (sNewWord == "")
@@ -185,4 +190,3 @@ for (int x = sAcceptedChars.length()-1; x >=0 ; x--) {
 	}
 	else break;
 	*/
-
