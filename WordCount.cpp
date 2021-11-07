@@ -117,9 +117,10 @@ int WordCount::decrWordCount(const std::string& word) {
 				table[hashed].erase(table[hashed].begin() + x);		// now use integer x to delete it
 				return 0;
 			}
-
-			i.second--;											//if it's a repeat of same hash AND same word  AND second is greater than 1
-			return i.second;
+			else {
+				i.second--;											//*********WONT KEEP NEW VALUE
+				return i.second;
+			}
 		}
 		x++;
 	}
