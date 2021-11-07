@@ -118,7 +118,10 @@ int WordCount::decrWordCount(const std::string& word) {
 				return 0;
 			}
 			else {
-				i.second--;											//*********WONT KEEP NEW VALUE
+				//i.second--;											//*********WONT KEEP NEW VALUE**********************************
+				table[hashed][x].second--;
+				i.second--;
+
 				return i.second;
 			}
 		}
